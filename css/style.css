@@ -1,0 +1,54 @@
+body {
+    text-align: center;
+    background-color: #00ffff;
+}
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+canvas {
+	float: center;
+	margin-top:0;
+	border-style: solid;
+	border-color: black;
+}
+
+#header{
+	width:150px;
+	height: 100px;
+	text-align: left;
+	float: left;
+	margin-top:20%;
+	margin-left: 10px;
+	font-size: 20px;
+	border-style: solid;
+	border-color: black;
+	background-color: #000033;
+	/*from https://css-tricks.com/adding-stroke-to-web-text/ */
+	color: white;
+  	text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+   -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
+#info{
+	text-align: right;
+	float: right;
+	margin-top:20%;
+	margin-right:10px;
+	font-size:20px;
+	border-style: solid;
+	border-color: black;
+	background-color: #000033;
+	color: white;
+  	text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+   -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
