@@ -14,7 +14,7 @@
      */
     function load(urlOrArr) {
         if(urlOrArr instanceof Array) {
-            /* If the developer passed in an array of images
+            /* If passed in an array of images
              * loop through each value and call our image
              * loader on that image file
              */
@@ -22,7 +22,7 @@
                 _load(url);
             });
         } else {
-            /* The developer did not pass an array to this function,
+            /* If did not pass an array to this function,
              * assume the value is a string and call our image loader
              * directly.
              */
@@ -46,7 +46,7 @@
             var img = new Image();
             img.onload = function() {
                 /* Once our image has properly loaded, add it to our cache
-                 * so that we can simply return this image if the developer
+                 * so that we can simply return this image if
                  * attempts to load this file in the future.
                  */
                 resourceCache[url] = img;
@@ -67,7 +67,7 @@
             img.src = url;
         }
     }
-    /* This is used by developer's to grab references to images they know
+    /* This is to grab references to images we know
      * have been previously loaded. If an image is cached, this functions
      * the same as calling load() on that URL.
      */

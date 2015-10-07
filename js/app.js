@@ -35,23 +35,23 @@ GameHandler.prototype.renderOffOn = function(startGame){
 };
 
 //Helper functions for Enemy
-GameHandler.prototype.randomRow = function(){//place player objects and enemies in a random row
+GameHandler.prototype.randomRow = function(){
+    //place player objects and enemies in a random row
     var row1=65, row2=145, row3=225, row4=310, row5=390;
     var whichRow = this.getRandom(1, 6);
-    if (whichRow===1) {
-        return row1;
-    }
-    else if(whichRow===2){
-        return row2;
-    }
-    else if(whichRow===3){
-        return row3;
-    }
-    else if(whichRow===4){
-        return row4;
-    }
-    else if(whichRow===5){
-        return row5;
+    switch(whichRow){
+        case 1:
+            return row1;
+        case 2:
+            return row2;
+        case 3:
+            return row3;
+        case 4:
+            return row4;
+        case 5:
+            return row5;
+        default:
+            break;
     }
 };
 
@@ -59,10 +59,11 @@ GameHandler.prototype.randomRow = function(){//place player objects and enemies 
 *for more information on collision
 */
 GameHandler.prototype.checkCollisions = function(){
-    var widthHitBox = 75, heightHitBox = 50;//Object hit boxes
+    var widthHitBox = 75, heightHitBox = 50; //Object hit boxes
     allEnemies.forEach(function(enemy) {
         if(player.x < enemy.x + widthHitBox && player.x + widthHitBox > enemy.x &&
-            player.y < enemy.y + heightHitBox && player.y + heightHitBox > enemy.y){//check for player hitting enemy
+            player.y < enemy.y + heightHitBox && player.y + heightHitBox > enemy.y){
+            //check for player hitting enemy
             player.x = 200;
             player.y = 480;
             player.lives--;
@@ -77,7 +78,8 @@ GameHandler.prototype.checkCollisions = function(){
     playerObjects.forEach(function(playerObjects){
         if(player.x < playerObjects.x + widthHitBox && player.x + widthHitBox > playerObjects.x &&
             player.y < playerObjects.y + heightHitBox && player.y + 
-            heightHitBox > playerObjects.y && playerObjects.show === true){//check is player is hitting objects
+            heightHitBox > playerObjects.y && playerObjects.show === true){
+            //check is player is hitting objects
                 playerObjects.toRender(false);
                 if(playerObjects === greenGem || playerObjects === blueGem || playerObjects === orangeGem){//if player hits gems
                     player.score+=100;
@@ -94,20 +96,19 @@ GameHandler.prototype.checkCollisions = function(){
 GameHandler.prototype.randomColumn = function(){
     var col1 =-2, col2=99, col3 = 200, col4=301, col5=402;
     var whichCol=this.getRandom(1,6);
-    if (whichCol===1) {
-        return col1;
-    }
-    else if(whichCol===2){
-        return col2;
-    }
-    else if(whichCol===3){
-        return col3;
-    }
-    else if(whichCol===4){
-        return col4;
-    }
-    else if(whichCol===5){
-        return col5;
+    switch(whichCol){
+        case 1:
+            return col1;
+        case 2:
+            return col2;
+        case 3: 
+            return col3;
+        case 4:
+            return col4;
+        case 5:
+            return col5;
+        default:
+            return;
     }
 };
 
@@ -128,10 +129,12 @@ GameHandler.prototype.gameReset = function(){
     allEnemies.forEach(function(enemy) {
             enemy.reset(gameHandler.randomLeftRight());
         });
+    //removes enemies from allEnemies when game resets.
     allEnemies.splice(5,9);
 };
 
-GameHandler.prototype.updateLevel = function(){//push enemies into the array and generate more per level
+GameHandler.prototype.updateLevel = function(){
+    //push enemies into the array and generate more per level
     this.level++;
     if (this.level < 10){
         var enemy = new Enemy(gameHandler.randomRow(), gameHandler.randomLeftRight());
@@ -152,8 +155,7 @@ function Enemy(y, flipped) {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     // multiple movement by dt parameter
-    if(this.x > 550 || this.x < -100)
-    {
+    if(this.x > 550 || this.x < -100){
         this.reset(gameHandler.randomLeftRight());
     }
     this.x += this.w * dt;
@@ -167,7 +169,7 @@ Enemy.prototype.render = function() {
 Enemy.prototype.reset = function(flipped){
     var startLeft = -100;
     var startRight = 510;
-    var minSpeed, maxSpeed;//Level effects excelleration
+    var minSpeed, maxSpeed; //Level effects excelleration
     if(gameHandler.level>2){
         minSpeed = 30; 
         maxSpeed = 70;
@@ -241,23 +243,28 @@ Player.prototype.handleInput = function(input){
             this.y += blockY;
         }
     }
-    if (this.y < 10){//if player goes into water, reset position
+    if (this.y < 10){
+            //if player goes into water, reset position
             this.x = 200;
             this.y = 480;
             player.score += 300;
-            if(gameHandler.level < 10){//dont go over 10 levels
+            if(gameHandler.level < 10){
+                //dont go over 10 levels
                 gameHandler.updateLevel();
             }
             gameHandler.resetPlayerObjects();//reset player objects
             gameHandler.changeLevelHTML();//update score and levels
     }
-    if (this.x < -2){ //if x goes past canvas, reset to left most boundry
+    if (this.x < -2){ 
+        //if x goes past canvas, reset to left most boundry
         this.x = -2;
     }
-    if(this.x > 402){//if x goes past canvas/right, reset to right most boundry
+    if(this.x > 402){
+        //if x goes past canvas/right, reset to right most boundry
         this.x = 402;
     }
-    if (this.y > 480){//if y goes past bottom boundry, reset to bottom boundry
+    if (this.y > 480){
+        //if y goes past bottom boundry, reset to bottom boundry
         this.y = 480;
     }
      //reset game if the game is ended
@@ -295,7 +302,6 @@ function Gem(color, x, y){
     }
     else if(color === 'heart'){
         this.sprite = 'images/Heart.png';
-
     }
     this.x = x;
     this.y = y;
